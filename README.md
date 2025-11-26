@@ -197,9 +197,10 @@ INSTALLED_APPS = [
 
 <img width="640" height="377" alt="Screenshot 2025-11-26 162152" src="https://github.com/user-attachments/assets/d7075a4d-4a38-47a6-b150-ac9f420b6d88" />
 
+```bash
     python manage.py makemigrations projects
     python manage.py migrate
-
+```
 
 ## 14. User, Groups and Permissions
 
