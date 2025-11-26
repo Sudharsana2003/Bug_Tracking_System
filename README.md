@@ -31,7 +31,7 @@ https://victopialabs-my.sharepoint.com/:x:/p/sudharsana/IQAlOOt47aJCSIgqfzi-Q92O
   
   mkdir Bug_Tracking_System
   cd Bug_Tracking_System
-  
+
   1.2 Create the Virtual Environment
   
   python -m venv venv
@@ -43,6 +43,27 @@ https://victopialabs-my.sharepoint.com/:x:/p/sudharsana/IQAlOOt47aJCSIgqfzi-Q92O
   1.4 Open the Project in VS Code
   
   code .
+
+  1.5 How to create django app in nested folders
+   mkdir apps
+   cd apps
+   
+  1.6 Inside apps
+  --app-name syntax relative to the project root
+  ..\ tells Python to use manage.py in the parent folder
+
+  python ..\manage.py startapp users
+  python ..\manage.py startapp projects
+  python ..\manage.py startapp bugs
+  python ..\manage.py startapp comments
+
+  1.7 Update config/settings.py and apps files in every model to use full path ('apps.users')
+
+  1.8 Run server or migrations
+
+  python manage.py makemigrations
+  python manage.py migrate
+  python manage.py runserver
 
   <img width="679" height="323" alt="image" src="https://github.com/user-attachments/assets/3ae8d063-0280-4276-a6ea-deb08ae30dd2" />
 
@@ -62,6 +83,7 @@ pip install -r requirements.txt
 2.2 Create Models and add in settings.py
 
 <img width="621" height="344" alt="image" src="https://github.com/user-attachments/assets/3401fde6-e5fa-4d53-b1bd-b73660c86504" />
+
 
 2.3 Running the server
 
