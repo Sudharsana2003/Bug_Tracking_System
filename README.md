@@ -197,8 +197,8 @@ INSTALLED_APPS = [
 
 <img width="640" height="377" alt="Screenshot 2025-11-26 162152" src="https://github.com/user-attachments/assets/d7075a4d-4a38-47a6-b150-ac9f420b6d88" />
 
-python manage.py makemigrations projects
-python manage.py migrate
+    python manage.py makemigrations projects
+    python manage.py migrate
 
 
 ## 14. User, Groups and Permissions
@@ -209,15 +209,16 @@ python manage.py migrate
 ## 14.2 Creation of Staffusers
 <img width="1312" height="622" alt="image" src="https://github.com/user-attachments/assets/92e99fa5-b02b-425c-a9c2-9f1d7d581963" />
 
-## 14.3 Creation of Manager Group
+## 14.3 Creation of Manager, Reporter, Developer Group
      -Create users
-     -map to Manager Group
+     -map to each Group
+     Below is my sample mapping of users to their roles:
 <img width="1323" height="559" alt="image" src="https://github.com/user-attachments/assets/7c62daf3-c867-4a00-b407-45c82b3b5a17" />
 
 
-## Models
+## 14.4 Models
 
-1.Project
+## 1.Models - Project
 | User / Role                    | Permissions in Django                                | Can do in Admin              |
 | ------------------------------ | ---------------------------------------------------- | ---------------------------- |
 | **Superuser**                  | All                                                  | Add / Change / Delete / View |
@@ -226,10 +227,14 @@ python manage.py migrate
 | **Inba / Sri (Reporter)**      | View only                                            | View only                    |
 | **Sudhir Normal user (no group)**     | View only                                            | View only                    |
 
+## 2.Operations -  Project:
 
+## Admin
+
+## 1.Creation/Updation
 <img width="1323" height="626" alt="image" src="https://github.com/user-attachments/assets/dca17ce4-26c3-40f9-b597-27b2250d9e0f" />
-
-     
+        
+             
 
 
 
