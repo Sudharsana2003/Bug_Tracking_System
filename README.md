@@ -232,7 +232,7 @@ INSTALLED_APPS = [
 
 ## Admin
 
-## 1.Creation/Updation
+## 1.Creation/Updation/Deletion
 <img width="1323" height="626" alt="image" src="https://github.com/user-attachments/assets/dca17ce4-26c3-40f9-b597-27b2250d9e0f" />
         
              
