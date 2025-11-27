@@ -228,14 +228,69 @@ INSTALLED_APPS = [
 | **Inba / Sri (Reporter)**      | View only                                            | View only                    |
 | **Sudhir Normal user (no group)**     | View only                                            | View only                    |
 
-## 2.Operations -  Project:
+## Operations -  Project:
 
 ## Admin
-
 ## 1.Creation/Updation/Deletion
 <img width="1323" height="626" alt="image" src="https://github.com/user-attachments/assets/dca17ce4-26c3-40f9-b597-27b2250d9e0f" />
         
-             
 
+## Operations - Project
 
+## Admin
+
+### 1. Creation / Updation / Deletion
+
+![Admin Operations](https://github.com/user-attachments/assets/dca17ce4-26c3-40f9-b597-27b2250d9e0f)
+
+---
+
+## 2. Model - Bug
+
+### Model Creation and Migration
+
+![Model Creation and Migration](https://github.com/user-attachments/assets/41611b16-31e1-4107-bc61-59dc255a696b)
+
+---
+
+## Operations - Bug
+
+| Group     | Permissions                  |
+| --------- | ---------------------------- |
+| Admin     | All Bug permissions          |
+| Manager   | Add / Change / Delete / View |
+| Developer | Change Only assigned / View All                |
+| Reporter  | Add / View                   |
+
+- **Superuser / Admin / Manager**: Full control (create, assign, edit, delete)
+- **Developer**: Can view, edit status/description, but cannot change assigned_to
+- **Reporter**: Can create bugs, view everything, cannot assign or change priority
+
+---
+
+## Sample Output
+
+### 1. Login As Reporter and Create a Bug
+
+![Reporter Create Bug](https://github.com/user-attachments/assets/2ba9e5b9-9f4c-4add-adbe-dc4c07c19fc5)
+
+![Reporter Bug View](https://github.com/user-attachments/assets/40018f76-188f-42fb-b50e-70731d06c262)
+
+---
+
+### 2. Manager Assigns the Reporter Bug to Developer
+
+![Manager Assign Bug to Developer](https://github.com/user-attachments/assets/5be7881e-b116-438b-a39e-dc1c92bfe48e)
+
+![Manager Bug Assigned](https://github.com/user-attachments/assets/44720ab7-725a-4813-9fd5-321e5dfc5e75)
+
+---
+
+### 3. Developer Modifies Priority and Sets Bug Status (Only Bugs Assigned to Them)
+
+![Developer Modify Priority](https://github.com/user-attachments/assets/b390fd65-e8c7-4882-9376-e873df0f5144)
+
+![Developer Modify Bug Status](https://github.com/user-attachments/assets/aec80e96-d2a1-4ebc-a4b7-8e609cb990ea)
+
+---
 
