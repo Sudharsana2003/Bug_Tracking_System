@@ -3,10 +3,11 @@ from rest_framework.permissions import BasePermission, SAFE_METHODS
 class BugPermission(BasePermission):
     """
     Custom permission for Bugs according to roles:
+
     - Superuser: Full access
     - Admin / Manager: Full access
-    - Developer: Can view assigned bugs
-    - Reporter: Can create bugs and view their own bugs
+    - Developer: Can view all bugs, update only assigned bugs
+    - Reporter: Can create bugs, view all bugs, cannot update assigned_to
     """
 
     def has_permission(self, request, view):
@@ -23,13 +24,16 @@ class BugPermission(BasePermission):
         if user.groups.filter(name__in=['Admin', 'Manager']).exists():
             return True
 
-        # Developers can view (list/retrieve) only
+        # Developers: can list and retrieve all bugs
         if user.groups.filter(name='Developer').exists():
             if view.action in ['list', 'retrieve']:
                 return True
+            # PUT/PATCH handled in object permission
+            if view.action in ['update', 'partial_update']:
+                return True
             return False
 
-        # Reporters can create and view list/retrieve their own bugs
+        # Reporter: can list/retrieve and create
         if user.groups.filter(name='Reporter').exists():
             if view.action in ['list', 'retrieve', 'create']:
                 return True
@@ -48,19 +52,19 @@ class BugPermission(BasePermission):
         if user.groups.filter(name__in=['Admin', 'Manager']).exists():
             return True
 
-        # Developer: can view bugs assigned to them
+        # Developer: can view all, update only assigned bugs
         if user.groups.filter(name='Developer').exists():
             if request.method in SAFE_METHODS:
-                return obj.assigned_to == user
-            return False  # Developers cannot modify other fields
+                return True  # can view all
+            # For unsafe methods (PUT/PATCH), allow only if assigned
+            return obj.assigned_to == user
 
-        # Reporter: can view their own created bugs
+        # Reporter: view all, can create only
         if user.groups.filter(name='Reporter').exists():
             if request.method in SAFE_METHODS:
-                return obj.created_by == user
-            # Reporter cannot update or assign
+                return True  # can view all
             if request.method == 'POST':
                 return True
-            return False
+            return False  # cannot PUT/PATCH/DELETE
 
         return False
