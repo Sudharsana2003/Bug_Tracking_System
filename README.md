@@ -294,3 +294,40 @@ INSTALLED_APPS = [
 
 ---
 
+## 3. Model - Comments
+
+### Model Creation and Migration
+![Comments Model Migration](https://github.com/user-attachments/assets/61ea2194-067a-4cc2-8f75-bcc9471b35a6)
+
+---
+
+## Operations - Comments
+
+| Group     | Permissions                          |
+| --------- | ------------------------------------ |
+| Admin     | All Comment permissions              |
+| Manager   | Add / Change / Delete / View         |
+| Developer | Add / Change own comments / View all |
+| Reporter  | Add / Change own comments / View all |
+
+**Permission Highlights:**
+- **Admin / Manager:** Full control (create, edit, delete, view)  
+- **Developer / Reporter:** Can add and change only their own comments; can view all comments  
+
+---
+
+## Sample Output
+
+**1. Manager assigning a comment on the bug of a project**  
+![Manager Assign Comment](https://github.com/user-attachments/assets/7fc223c1-5739-4e89-bc9b-9eb0af56866b)
+
+**2. Manager assigned a comment to a developer**  
+![Manager Assigned to Developer](https://github.com/user-attachments/assets/74f44789-9ed4-4f5e-bac4-10cba7be0db8)
+
+**3. Developer can see and update only their own comments, view others mapped to them**  
+- Developer can update their own comment  
+- Developer can only view comments from other users  
+
+
+
+
