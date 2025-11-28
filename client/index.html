@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>BTS JWT + CORS Test</title>
+</head>
+<body>
+<h2>BTS CORS Test (Port 8111)</h2>
+
+<div>
+    <label>Username: <input type="text" id="username"></label><br><br>
+    <label>Password: <input type="password" id="password"></label><br><br>
+    <button onclick="fetchBugs()">Login & Fetch Bugs</button>
+</div>
+
+<pre id="output" style="background:#f0f0f0; padding:10px;"></pre>
+
+<script>
+const API_BASE = "http://127.0.0.1:8000/api";
+
+async function fetchBugs() {
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+    const output = document.getElementById("output");
+
+    try {
+        output.textContent = "Logging in...";
+        const tokenRes = await fetch(`${API_BASE}/token/`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password })
+        });
+
+        const tokenData = await tokenRes.json();
+        const token = tokenData.access;
+
+        output.textContent = "Token acquired! Fetching bugs...\n";
+
+        const bugsRes = await fetch(`${API_BASE}/bugs/`, {
+            headers: { "Authorization": `Bearer ${token}` }
+        });
+
+        const bugs = await bugsRes.json();
+        output.textContent += JSON.stringify(bugs, null, 2);
+
+    } catch (err) {
+        output.textContent = "Error: " + err;
+    }
+}
+</script>
+</body>
+</html>

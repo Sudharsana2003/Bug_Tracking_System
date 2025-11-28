@@ -42,12 +42,16 @@ INSTALLED_APPS = [
     'apps.projects',
     'apps.bugs',
     'apps.comments',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -143,6 +147,18 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),   # change here
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),     # refresh token lifetime
     'ROTATE_REFRESH_TOKENS': False,
-    'BLACKLIST_AFTER_ROTATION': True,
+    'BLACKLIST_AFTER_ROTATION': True, 
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8111",
+    "http://127.0.0.1:8111",
+]
+CORS_ALLOW_CREDENTIALS = True
+
+from corsheaders.defaults import default_headers
+
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    "authorization",
+]
