@@ -294,3 +294,164 @@ INSTALLED_APPS = [
 
 ---
 
+## 3. Model - Comments
+
+### Model Creation and Migration
+![Comments Model Migration](https://github.com/user-attachments/assets/61ea2194-067a-4cc2-8f75-bcc9471b35a6)
+
+---
+
+## Operations - Comments
+
+| Group     | Permissions                          |
+| --------- | ------------------------------------ |
+| Admin     | All Comment permissions              |
+| Manager   | Add / Change / Delete / View         |
+| Developer | Add / Change own comments / View all |
+| Reporter  | Add / Change own comments / View all |
+
+**Permission Highlights:**
+- **Admin / Manager:** Full control (create, edit, delete, view)  
+- **Developer / Reporter:** Can add and change only their own comments; can view all comments  
+
+---
+
+## Sample Output
+
+**1. Manager assigning a comment on the bug of a project**  
+![Manager Assign Comment](https://github.com/user-attachments/assets/7fc223c1-5739-4e89-bc9b-9eb0af56866b)
+
+**2. Manager assigned a comment to a developer**  
+![Manager Assigned to Developer](https://github.com/user-attachments/assets/74f44789-9ed4-4f5e-bac4-10cba7be0db8)
+
+**3. Developer can see and update only their own comments, view others mapped to them**  
+- Developer can update their own comment  
+- Developer can only view comments from other users  
+
+
+Absolutely! I can format all that data into clean **Markdown tables and notes**, following your sample style. Here's how it would look:
+
+---
+
+## Endpoints - Developer
+
+### A. Bugs
+
+| Action         | Endpoint                   | Expected Behavior                     |
+| -------------- | -------------------------- | ------------------------------------- |
+| List Bugs      | GET /api/bugs/             | Can view all bugs                     |
+| Retrieve Bug   | GET /api/bugs/<bug_id>/    | Can view any bug                      |
+| Create Bug     | POST /api/bugs/            | Typically NO                          |
+| Update Bug     | PUT /api/bugs/<bug_id>/    | Can only update if assigned_to = self |
+| Partial Update | PATCH /api/bugs/<bug_id>/  | Same as above                         |
+| Delete Bug     | DELETE /api/bugs/<bug_id>/ | Not allowed                           |
+
+* **Developer-specific**: Only allowed to update bugs assigned to them; cannot change `assigned_to`.
+
+### B. Comments
+
+| Action           | Endpoint                              | Expected Behavior               |
+| ---------------- | ------------------------------------- | ------------------------------- |
+| List Comments    | GET /api/comments/                    | Can view all comments           |
+| Retrieve Comment | GET /api/comments/<comment_id>/       | Can view any comment            |
+| Create Comment   | POST /api/comments/                   | Can add comments on any bug     |
+| Update Comment   | PUT/PATCH /api/comments/<comment_id>/ | Only own comments (user = self) |
+| Delete Comment   | DELETE /api/comments/<comment_id>/    | Not allowed                     |
+
+* **Developer-specific**: Ownership enforced via `save_model` in admin and serializers.
+
+### C. Projects
+
+| Action               | Endpoint                        | Expected Behavior                |
+| -------------------- | ------------------------------- | -------------------------------- |
+| List Projects        | GET /api/projects/              | Can view all projects            |
+| Retrieve Project     | GET /api/projects/<project_id>/ | Can view project details         |
+| Create/Update/Delete | POST/PUT/PATCH/DELETE           | Not allowed (Admin/Manager only) |
+
+---
+
+## Endpoints - Manager
+
+### A. Bugs
+
+| Action         | Endpoint                   | Expected Behavior               |
+| -------------- | -------------------------- | ------------------------------- |
+| List Bugs      | GET /api/bugs/             | Can view all bugs               |
+| Retrieve Bug   | GET /api/bugs/<bug_id>/    | Can view any bug                |
+| Create Bug     | POST /api/bugs/            | Allowed                         |
+| Update Bug     | PUT /api/bugs/<bug_id>/    | Can update any bug              |
+| Partial Update | PATCH /api/bugs/<bug_id>/  | Allowed                         |
+| Assign Bug     | PATCH /api/bugs/<bug_id>/  | Can assign bug to any developer |
+| Delete Bug     | DELETE /api/bugs/<bug_id>/ | Allowed                         |
+
+* **Manager-specific**: Full control over all fields including status, priority, `assigned_to`, due_date, severity.
+
+### B. Comments
+
+| Action           | Endpoint                              | Expected Behavior     |
+| ---------------- | ------------------------------------- | --------------------- |
+| List Comments    | GET /api/comments/                    | Can view all comments |
+| Retrieve Comment | GET /api/comments/<comment_id>/       | Can view any comment  |
+| Create Comment   | POST /api/comments/                   | Allowed               |
+| Update Comment   | PUT/PATCH /api/comments/<comment_id>/ | Can edit any comment  |
+| Delete Comment   | DELETE /api/comments/<comment_id>/    | Allowed               |
+
+* **Manager-specific**: Full control over all comments.
+
+### C. Projects
+
+| Action           | Endpoint                              | Expected Behavior |
+| ---------------- | ------------------------------------- | ----------------- |
+| List Projects    | GET /api/projects/                    | Can view          |
+| Retrieve Project | GET /api/projects/<project_id>/       | Can view          |
+| Create Project   | POST /api/projects/                   | Allowed           |
+| Update Project   | PUT/PATCH /api/projects/<project_id>/ | Allowed           |
+| Delete Project   | DELETE /api/projects/<project_id>/    | Allowed           |
+
+* **Manager-specific**: Owner/controller of project configuration.
+
+---
+
+## Endpoints - Reporter
+
+### A. Bugs
+
+| Action         | Endpoint                   | Expected Behavior                                 |
+| -------------- | -------------------------- | ------------------------------------------------- |
+| List Bugs      | GET /api/bugs/             | Can view all bugs                                 |
+| Retrieve Bug   | GET /api/bugs/<bug_id>/    | Can view any bug                                  |
+| Create Bug     | POST /api/bugs/            | Allowed, cannot assign (`assigned_to` auto blank) |
+| Update Bug     | PUT /api/bugs/<bug_id>/    | Not allowed                                       |
+| Partial Update | PATCH /api/bugs/<bug_id>/  | Not allowed                                       |
+| Delete Bug     | DELETE /api/bugs/<bug_id>/ | Not allowed                                       |
+
+* **Reporter-specific**: Cannot set `assigned_to`, status, priority, or severity.
+
+### B. Comments
+
+| Action           | Endpoint                              | Expected Behavior                |
+| ---------------- | ------------------------------------- | -------------------------------- |
+| List Comments    | GET /api/comments/                    | Can view all comments            |
+| Retrieve Comment | GET /api/comments/<comment_id>/       | Can view any comment             |
+| Create Comment   | POST /api/comments/                   | Allowed to add comment           |
+| Update Comment   | PUT/PATCH /api/comments/<comment_id>/ | Only own comments                |
+| Delete Comment   | DELETE /api/comments/<comment_id>/    | Not allowed for others’ comments |
+
+* **Reporter-specific**: Own only the comments they create; cannot edit/delete others’ comments.
+
+### C. Projects
+
+| Action           | Endpoint                              | Expected Behavior        |
+| ---------------- | ------------------------------------- | ------------------------ |
+| List Projects    | GET /api/projects/                    | Can view all projects    |
+| Retrieve Project | GET /api/projects/<project_id>/       | Can view project details |
+| Create Project   | POST /api/projects/                   | Not allowed              |
+| Update Project   | PUT/PATCH /api/projects/<project_id>/ | Not allowed              |
+| Delete Project   | DELETE /api/projects/<project_id>/    | Not allowed              |
+
+* **Reporter-specific**: Consumer only; cannot manage project configuration or assign bugs.
+
+---
+
+Attached is the link to access the Postman workspace for the Bug Tracking System API: 
+[Postman Workspace](https://www.postman.com/docking-module-geoscientist-9348247/workspace/bug-tracking-system-django)
