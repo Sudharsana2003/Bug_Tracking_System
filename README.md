@@ -511,6 +511,7 @@ Backend API is hosted locally on:
 
 ```
 ```
+<img width="1490" height="886" alt="image" src="https://github.com/user-attachments/assets/11b7f7ba-d991-4182-b2cf-8f506811af03" />
 
 ---
 
