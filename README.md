@@ -453,5 +453,68 @@ Absolutely! I can format all that data into clean **Markdown tables and notes**,
 
 ---
 
-Attached is the link to access the Postman workspace for the Bug Tracking System API: 
+## Attached is the link to access the Postman workspace for the Bug Tracking System which includes:
+
+    1.RBAC for CRUD Operations
+    2.Pagination
+    3.Search API using Q objects
+
 [Postman Workspace](https://www.postman.com/docking-module-geoscientist-9348247/workspace/bug-tracking-system-django)
+
+## CORS Handling
+
+Cross-Origin Resource Sharing (CORS) is enabled to allow the frontend application to communicate with the Django REST API securely.
+
+## Configuration
+
+CORS is configured using the django-cors-headers package.
+
+## Installation
+
+```bash
+pip install django-cors-headers
+```
+
+## Settings Configuration (settings.py)
+
+```bash
+INSTALLED_APPS = [
+    ...
+    'corsheaders',
+]
+
+MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    ...
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8111",
+]
+
+CORS_ALLOW_CREDENTIALS = True
+```
+
+
+## Environment Setup
+
+```md
+The frontend JavaScript application is configured to communicate with the Django backend server running at:
+```
+[http://127.0.0.1:8000](http://127.0.0.1:8000)
+
+```
+Backend API is hosted locally on:
+```
+[http://localhost:8111](http://localhost:8111)
+
+```
+```
+
+---
+
+
+
+
+
