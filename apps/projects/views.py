@@ -14,7 +14,7 @@ class ProjectListCreateView(generics.ListCreateAPIView):
     def get_queryset(self):
         queryset = Project.objects.all().order_by('-created_at')
 
-        # 🔍 SEARCH SUPPORT
+        # SEARCH SUPPORT
         search = self.request.query_params.get('search')
         if search:
             queryset = queryset.filter(
